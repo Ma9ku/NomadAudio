@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:nomad_player/views/album.dart';
 
 import '../widgets/RowSongCard.dart';
@@ -40,7 +42,7 @@ class _HomeViewState extends State<HomeView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Recently played playlists", style: Theme.of(context).textTheme.headline6,),
+                        Text("Недавно прослушанные", style: Theme.of(context).textTheme.headline6,),
                         Row(
                           children: const [
                             Icon(Icons.history),
@@ -59,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
                   Row(
                     children: [
                       SizedBox(width: 16,),
-                      Text("Pop playlists", style: Theme.of(context).textTheme.headline6),
+                      Text("Плейлисты Pop", style: Theme.of(context).textTheme.headline6),
                     ],
                   ),
                   Row3(),
@@ -67,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
                   Row(
                     children: [
                       SizedBox(width: 16,),
-                      Text("RnB playlists", style: Theme.of(context).textTheme.headline6),
+                      Text("Плейлисты RnB", style: Theme.of(context).textTheme.headline6),
                     ],
                   ),
                   SizedBox(width: 16,),
@@ -97,14 +99,27 @@ class Row1 extends StatelessWidget {
           children: const [
             AlbumCard(
               label: 'Illuminate',
-              poster: AssetImage("assets/album7.jpeg")
+              poster: AssetImage("assets/album7.jpeg"),
+              author: 'Shawn Mendes',
             ),
             SizedBox(width: 16,),
-            AlbumCard(label: 'In my blood', poster: AssetImage("assets/album6.jpeg")),
+            AlbumCard(
+                label: 'In my blood',
+                poster: AssetImage("assets/album6.jpeg"),
+                author: 'Shawn Mendes'
+            ),
             SizedBox(width: 16,),
-            AlbumCard(label: 'Wonder', poster: AssetImage("assets/album5.jpeg")),
+            AlbumCard(
+                label: 'Wonder',
+                poster: AssetImage("assets/album5.jpeg"),
+                author: 'Shawn Mendes'
+            ),
             SizedBox(width: 16,),
-            AlbumCard(label: 'Shawn Mendes', poster: AssetImage("assets/album4.webp")),
+            AlbumCard(
+                label: 'Shawn Mendes',
+                poster: AssetImage("assets/album4.webp"),
+                author: 'Shawn Mendes'
+            ),
           ]
       ),
     );
@@ -123,7 +138,7 @@ class Row2 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text("Recently played songs", style: Theme.of(context).textTheme.headline6,),
+          Text("Недавно прослушанные песни", style: Theme.of(context).textTheme.headline6,),
           SizedBox(height: 16,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -168,13 +183,29 @@ class Row3 extends StatelessWidget {
       padding: EdgeInsets.all(16),
       child: Row(
           children: [
-            AlbumCard(label: 'No promises', poster: AssetImage("assets/album7.jpeg")),
+            AlbumCard(
+              label: 'No promises',
+              poster: AssetImage("assets/album7.jpeg"),
+              author: 'Shawn Mendes'
+            ),
             SizedBox(width: 16,),
-            AlbumCard(label: 'In my blood', poster: AssetImage("assets/album6.jpeg")),
+            AlbumCard(
+              label: 'In my blood',
+              poster: AssetImage("assets/album6.jpeg"),
+              author: 'Shawn Mendes'
+            ),
             SizedBox(width: 16,),
-            AlbumCard(label: 'Wonder', poster: AssetImage("assets/album5.jpeg")),
+            AlbumCard(
+              label: 'Wonder',
+              poster: AssetImage("assets/album5.jpeg"),
+              author: 'Shawn Mendes'
+            ),
             SizedBox(width: 16,),
-            AlbumCard(label: 'Lost in Japan', poster: AssetImage("assets/album4.webp")),
+            AlbumCard(
+              label: 'Lost in Japan',
+              poster: AssetImage("assets/album4.webp"),
+              author: 'Shawn Mendes'
+            ),
           ]
       ),
     );

@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nomad_player/views/album.dart';
+import 'package:provider/provider.dart';
 
 class AlbumCard extends StatelessWidget {
   final ImageProvider poster;
   final String label;
+  final String author;
 
-  const AlbumCard({Key? key, required this.poster, required this.label}) : super(key: key);
+  const AlbumCard({Key? key, required this.poster, required this.label, required this.author}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class AlbumCard extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => AlbumView())
+          MaterialPageRoute(builder: (context) => AlbumView(image: poster, playlist: label, artist: author))
         );
       },
       child: Column(

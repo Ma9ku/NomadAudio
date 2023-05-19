@@ -1,8 +1,33 @@
+import 'dart:io';
+import 'dart:js';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:nomad_player/providers/albumDataProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:nomad_player/navigation/tabbar.dart';
 
+import 'models/tabbarModel.dart';
+
 void main() {
-  runApp(const MainApp());
+  FlutterError.onError = (details) {
+    FlutterError.presentError(details);
+    if (kReleaseMode) exit(1);
+  };
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<TabbarModel>(
+          create: (context) => TabbarModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AlbumDataProvider(),
+        )
+        // Add other providers if needed
+      ],
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -30,7 +55,10 @@ class MainApp extends StatelessWidget {
 
         )
       ),
-      home: Tabbar(),
+      home: ChangeNotifierProvider<TabbarModel>(
+        child: Tabbar(index: 0,),
+        create: (BuildContext context) => TabbarModel(),
+      )
     );
   }
 }
