@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:js';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +8,19 @@ import 'package:nomad_player/navigation/tabbar.dart';
 
 import 'models/tabbarModel.dart';
 
-void main() {
+import 'package:nomad_player/widget_tree.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
   FlutterError.onError = (details) {
     FlutterError.presentError(details);
     if (kReleaseMode) exit(1);
   };
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+
   runApp(
     MultiProvider(
       providers: [
@@ -56,7 +63,7 @@ class MainApp extends StatelessWidget {
         )
       ),
       home: ChangeNotifierProvider<TabbarModel>(
-        child: Tabbar(index: 0,),
+        child: WidgetTree(),
         create: (BuildContext context) => TabbarModel(),
       )
     );

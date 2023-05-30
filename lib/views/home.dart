@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:nomad_player/views/album.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:nomad_player/auth.dart';
 
 import '../widgets/RowSongCard.dart';
 import '../widgets/albumCard.dart';
@@ -9,9 +9,17 @@ import '../widgets/albumCard.dart';
 class HomeView extends StatefulWidget {
   @override
   _HomeViewState createState() => _HomeViewState();
+
 }
 
 class _HomeViewState extends State<HomeView> {
+  final User? user = Auth().currentUser;
+  // user?.email for email
+
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

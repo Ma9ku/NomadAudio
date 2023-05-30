@@ -16,7 +16,7 @@ class AlbumDataProvider with ChangeNotifier {
     late AlbumModel result;
     try {
       final response = await http.get(
-        Uri.parse("https://jsonplaceholder.typicode.com/posts/1"),
+        Uri.parse("spoify api"),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
         },

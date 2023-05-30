@@ -132,11 +132,6 @@ class AlbumViewState extends State<AlbumView> {
       return playlist['playlist'] == widget.playlist && playlist['artist'] == widget.artist;
     });
 
-// Use the filtered list of playlists however you need, for example:
-    filteredPlaylists.forEach((playlist) {
-      print('${playlist['label']} by ${playlist['artist']}');
-    });
-
     setState(() {
       imageSize = initSize;
     });
@@ -153,7 +148,7 @@ class AlbumViewState extends State<AlbumView> {
             icon: IconButton(
               icon: Icon(Icons.home_outlined),
               onPressed: () {
-                Navigator.push(
+                Navigator.pop(
                     context,
                     MaterialPageRoute(builder: (context) => Tabbar(index: 0))
                 );
