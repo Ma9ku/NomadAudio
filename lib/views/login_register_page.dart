@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nomad_player/navigation/tabbar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -19,6 +20,14 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerNickname = TextEditingController();
+  String? selectedMembership = 'membership-1';
+
+  void loginAsGuest() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => Tabbar(index: 0)),
+    );
+  }
 
   Future<void> signInWithEmailAndPassword() async {
     try {
@@ -36,10 +45,11 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> createUserWithEmailAndPassword() async {
     try {
       await Auth().createUserWithEmailAndPassword(
-          email: _controllerEmail.text,
-          password: _controllerPassword.text,
-          name: _controllerName.text,
-          nickname: _controllerNickname.text
+        email: _controllerEmail.text,
+        password: _controllerPassword.text,
+        name: _controllerName.text,
+        nickname: _controllerNickname.text,
+        membership: selectedMembership,
       );
     } on FirebaseAuthException catch(e) {
       setState(() {
@@ -72,6 +82,26 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _membershipDropdown() {
+    return DropdownButton<String>(
+      value: selectedMembership,
+      onChanged: (String? newValue) {
+        setState(() {
+          selectedMembership = newValue;
+        });
+      },
+      items: <String>['membership-1', 'membership-2']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      hint: Text('Select Membership'),
+    );
+  }
+
+
   Widget _title() {
     return const Text(
       'Nomad Audio',
@@ -86,6 +116,15 @@ class _LoginPageState extends State<LoginPage> {
         labelText: title,
       ),
       obscureText: title.toLowerCase().contains('пароль'), // Set obscureText to true for any field containing 'password' in its title
+    );
+  }
+
+  Widget _loginAsGuestButton() {
+    return ElevatedButton(
+      onPressed: loginAsGuest,
+      child: Text(
+        'Login as Guest',
+      ),
     );
   }
 
@@ -134,12 +173,14 @@ class _LoginPageState extends State<LoginPage> {
             _entryField('пароль', _controllerPassword),
             if (!isLogin) _entryField('имя', _controllerName),
             if (!isLogin) _entryField('никнейм', _controllerNickname),
+            if (!isLogin) _membershipDropdown(),
             SizedBox(height: 10,),
             _errorMesage(),
             _submitButton(),
             _loginOrRegisterButton(),
             SizedBox(height: 10,),
             _signInWithGoogleButton(),
+            _loginAsGuestButton()
           ],
         ),
       ),

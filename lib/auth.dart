@@ -24,6 +24,7 @@ class Auth {
     required String password,
     required String name,
     required String nickname,
+    required String? membership
   }) async {
     final UserCredential userCredential =
     await _firebaseAuth.createUserWithEmailAndPassword(
@@ -39,6 +40,7 @@ class Auth {
       'uid': uid,
       'name': name,
       'nickname': nickname,
+      'membership': membership
     });
   }
 
